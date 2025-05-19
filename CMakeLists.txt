@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.10.0)
-option(GOTCHA_ENABLE_TESTS "Enable internal tests" Off)
-option(GOTCHA_ENABLE_WARNING_ERROR "Enable throw error for build warning" Off)
+cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
 
 set(LIBTOOL_INTERFACE 2)
 set(LIBTOOL_REVISION 4)
@@ -9,6 +7,10 @@ set(LIBTOOL_AGE 2)
 set(GOTCHA_VERSION "1.0.8")
 
 project(gotcha VERSION ${GOTCHA_VERSION})
+
+cmake_policy(SET CMP0077 NEW) # option() honors normal variables
+option(GOTCHA_ENABLE_TESTS "Enable internal tests" Off)
+option(GOTCHA_ENABLE_WARNING_ERROR "Enable throw error for build warning" Off)
 
 include(CheckCXXCompilerFlag)
 include(cmake/gotcha.cmake)
