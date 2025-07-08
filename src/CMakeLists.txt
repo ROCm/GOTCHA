@@ -23,8 +23,9 @@ if (GOTCHA_ENABLE_WARNING_ERROR)
 endif ()
 set_target_properties(gotcha PROPERTIES LINK_FLAGS "-fvisibility=${DEFAULT_SYMBOL_VISIBILITY}")
 target_include_directories(gotcha PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
+	$<INSTALL_INTERFACE:include>)
 if (GOTCHA_ENABLE_TESTS)
     add_library(gotcha_no_libc SHARED ${GOTCHA_SOURCES})
     set_target_properties(gotcha_no_libc PROPERTIES SOVERSION ${LIBTOOL_INTERFACE})
