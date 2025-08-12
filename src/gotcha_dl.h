@@ -1,10 +1,11 @@
 #ifndef GOTCHA_DL_H
 #define GOTCHA_DL_H
 
+#include "gotcha/gotcha_types.h"
 #include "hash.h"
 #include "tool.h"
 
-void handle_libdl();
+void handle_libdl(const gotcha_init_config_t *config);
 extern void update_all_library_gots(hash_table_t *bindings);
 extern long lookup_exported_symbol(const char *name, const struct link_map *lib,
                                    void **symbol);

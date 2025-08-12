@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "elf_ops.h"
 #include "gotcha/gotcha.h"
+#include "gotcha/gotcha_types.h"
 #include "gotcha_dl.h"
 #include "hash.h"
 #include "libc_wrappers.h"
@@ -104,13 +105,25 @@ void remove_library(struct link_map *map) {
   gotcha_free(lib);
 }
 
-void gotcha_init() {
+void gotcha_init_internal() {
+  gotcha_init_config_t gotcha_cfg = {.size = sizeof(gotcha_init_config_t),
+                                     .dl_open_bind = 1,
+                                     .dl_sym_bind = 1};
+  gotcha_init(&gotcha_cfg);
+}
+
+int gotcha_init(const gotcha_init_config_t *config) {
   static int gotcha_initialized = 0;
   if (gotcha_initialized) {
-    return;
+    return gotcha_initialized;
   }
+  if (!config) {
+    return -1;  // GCOVR_EXCL_LINE
+  }
+
   gotcha_initialized = 1;
   debug_init();
   setup_hash_tables();
-  handle_libdl();
+  handle_libdl(config);
+  return 0;
 }

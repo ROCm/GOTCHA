@@ -406,7 +406,7 @@ GOTCHA_EXPORT enum gotcha_error_t gotcha_wrap(
   tool_t *tool = NULL;
   hash_table_t new_bindings = EMPTY_HASH_TABLE;
 
-  gotcha_init();
+  gotcha_init_internal();
 
   debug_printf(1, "User called gotcha_wrap for tool %s with %d bindings\n",
                tool_name, num_actions);
@@ -508,7 +508,7 @@ static enum gotcha_error_t gotcha_configure_int(
 
 GOTCHA_EXPORT enum gotcha_error_t gotcha_set_priority(const char *tool_name,
                                                       int value) {
-  gotcha_init();
+  gotcha_init_internal();
   debug_printf(1, "User called gotcha_set_priority(%s, %d)\n", tool_name,
                value);
   enum gotcha_error_t error_on_set =
@@ -528,7 +528,7 @@ GOTCHA_EXPORT enum gotcha_error_t gotcha_set_priority(const char *tool_name,
 
 GOTCHA_EXPORT enum gotcha_error_t gotcha_get_priority(const char *tool_name,
                                                       int *priority) {
-  gotcha_init();
+  gotcha_init_internal();
   return get_configuration_value(tool_name, GOTCHA_PRIORITY, priority);
 }
 

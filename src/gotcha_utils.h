@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define GOTCHA_DEBUG_ENV "GOTCHA_DEBUG"
 extern int debug_level;
-void gotcha_init();
+void gotcha_init_internal();
 extern hash_table_t function_hash_table;
 extern hash_table_t notfound_binding_table;
 #define debug_bare_printf(lvl, format, ...)     \

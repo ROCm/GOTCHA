@@ -24,9 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef GOTCHA_TYPES_H
 #define GOTCHA_TYPES_H
 
+#include <stddef.h>
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+#define GOTCHA_INIT 1
 
 typedef void *gotcha_wrappee_handle_t;
 
@@ -51,6 +55,15 @@ typedef enum gotcha_error_t {
   GOTCHA_INTERNAL,            //!< Internal gotcha error
   GOTCHA_INVALID_TOOL         //!< Invalid tool name
 } gotcha_error_t;
+
+/*!
+ * The configuration structure for initializing Gotcha
+ */
+typedef struct gotcha_init_config_t {
+  size_t size;  //!< Size of this structure, used for versioning
+  int dl_open_bind;  //!< Whether to wrap dlopen
+  int dl_sym_bind;  //!< Whether to wrap dlsym
+} gotcha_init_config_t;
 
 #if defined(__cplusplus)
 }

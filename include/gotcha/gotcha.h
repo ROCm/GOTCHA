@@ -131,6 +131,26 @@ GOTCHA_EXPORT void gotcha_set_library_filter_func(
     int (*new_func)(struct link_map *));
 GOTCHA_EXPORT void gotcha_restore_library_filter_func();
 
+/*!
+ ******************************************************************************
+ *
+ * \fn int gotcha_init(const gotcha_init_config_t *config)
+ *
+ * \brief Explicitly initialize gotcha, specifying whether to wrap dlopen
+ *        and dlsym. Check availability of this function via GOTCHA_INIT
+ *        defined and equal to 1
+ *
+ * \param config A pointer to a gotcha_init_config_t structure.
+ *
+ * \return Returns 0 if configuration parameters were valid. Returns 1
+ *         if gotcha was already initialized. Returns -1 if the configuration
+ *         parameters were invalid.
+ *
+ ******************************************************************************
+ */
+
+GOTCHA_EXPORT int gotcha_init(const gotcha_init_config_t *config);
+
 #if defined(__cplusplus)
 }
 #endif

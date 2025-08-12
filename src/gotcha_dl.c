@@ -186,7 +186,17 @@ static void *dlsym_wrapper(void *handle, const char *symbol_name) {
   }
 }
 
-struct gotcha_binding_t dl_binds[] = {
-    {"dlopen", dlopen_wrapper, &orig_dlopen_handle},
+struct gotcha_binding_t dl_open_binds[] = {
+    {"dlopen", dlopen_wrapper, &orig_dlopen_handle}};
+
+struct gotcha_binding_t dl_sym_binds[] = {
     {"dlsym", dlsym_wrapper, &orig_dlsym_handle}};
-void handle_libdl() { gotcha_wrap(dl_binds, 2, "gotcha"); }
+
+void handle_libdl(const gotcha_init_config_t *config) {
+  if (config && config->dl_open_bind) {
+    gotcha_wrap(dl_open_binds, 1, "gotcha");
+  }
+  if (config && config->dl_sym_bind) {
+    gotcha_wrap(dl_sym_binds, 1, "gotcha");
+  }
+}
